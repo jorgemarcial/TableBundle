@@ -50,6 +50,13 @@ class MongoQueryBuilderDataSource implements DataSourceInterface
             $queryBuilder->sort($sortable->getCurrentColumnName(), $sortable->getCurrentDirection());
         }
 
+        if($pagination !== null)
+        {
+            $queryBuilder
+            ->skip($pagination->getCurrentPage() * $pagination->getItemsPerRow())
+            ->limit($pagination->getItemsPerRow());
+        }
+
         return $queryBuilder->getQuery()->execute();
     }
 
