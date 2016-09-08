@@ -40,10 +40,15 @@ class MongoQueryBuilderDataSource implements DataSourceInterface
         array $columns,
         array $filters = null,
         Pagination $pagination = null,
-        Order $order = null
+        Order $sortable = null
     )
     {
         $queryBuilder = clone $this->queryBuilder;
+
+        if($sortable !== null)
+        {
+            $queryBuilder->sort($sortable->getCurrentColumnName(), $sortable->getCurrentDirection());
+        }
 
         return $queryBuilder->getQuery()->execute();
     }
