@@ -49,12 +49,19 @@ class Row
 	 * @var boolean
 	 */
 	private $isSelected;
+
+	/**
+	 * data
+	 * @var data
+	 */
+	protected $data;
 	
-	public function __construct($entity, $count, $isSelected = false)
+	public function __construct($entity, $count, $isSelected = false, $data = null)
 	{
 		$this->entity = $entity;
 		$this->count = $count;
 		$this->isSelected = $isSelected;
+		$this->data = $data;
 		$this->attributes = array();
 	}
 	
@@ -101,5 +108,10 @@ class Row
 	public function isSelected()
 	{
 		return $this->isSelected;
+	}
+
+	public function getData()
+	{
+		return $this->data;
 	}
 }

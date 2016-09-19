@@ -576,7 +576,8 @@ class Table
 			$rows[] = new Row(
 				$dataRow, 
 				++$count, 
-				$isSelectionRequested && in_array($dataRow->getId(), $requestedRows)
+				$isSelectionRequested && in_array($dataRow->getId(), $requestedRows),
+				$data
 			);
 		}
 		$this->stopwatchService->stop($this->getName(), TableStopwatchService::CATEGORY_LOAD_DATA);
