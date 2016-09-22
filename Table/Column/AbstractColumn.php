@@ -97,6 +97,13 @@ abstract class AbstractColumn implements ColumnInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getInfo() {
+		return $this->options['info'];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setOptions(array $options)
 	{
 		$this->optionsResolver = new OptionsResolver();
@@ -111,7 +118,8 @@ abstract class AbstractColumn implements ColumnInterface
 			'attr' => array(),
 			'head_attr' => array(),
 			'sortable' => false,
-			'label' => $this->getName()
+			'label' => $this->getName(),
+			'info' => array()
 		));
 	}
 	
