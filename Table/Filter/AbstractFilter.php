@@ -140,6 +140,15 @@ abstract class AbstractFilter implements FilterInterface
 	 * @var bool
 	 */
 	protected $mapped;
+
+
+	/**
+	 * Optional array for passing information
+	 * about the filter
+	 * 
+	 * @var array
+	 */
+	protected $info;
 	
 	public function __construct(ContainerInterface $container)
 	{
@@ -218,6 +227,11 @@ abstract class AbstractFilter implements FilterInterface
 		return $this->mapped;
 	}
 	
+	public function getInfo()
+	{
+		return $this->info;
+	}
+
 	/**
 	 * 
 	 * @return mixed	Value of this filter or default value,
@@ -298,6 +312,7 @@ abstract class AbstractFilter implements FilterInterface
 		$this->defaultValue = $this->options['default_value'];
 		$this->valueManipulator = $this->options['value_manipulator'];
 		$this->mapped = $this->options['mapped'];
+		$this->info = $this->options['info'];
 		FilterOperator::validate($this->operator);
 	}
 	
@@ -317,7 +332,8 @@ abstract class AbstractFilter implements FilterInterface
 			'label_attr' => array('styles' => 'font-weight: bold'),
 			'default_value' => null,
 			'value_manipulator' => null,
-			'mapped' => true
+			'mapped' => true,
+			'info' => []
 		));
 	}
 	
