@@ -31,13 +31,14 @@ class DbalDataSource implements DataSourceInterface
 	/**
 	 * Array with the parts of query, fields and body.
 	 * Example :
+	 * $sqlStatementParts['where'] = true | false flag if where clause exist
 	 * $sqlStatementParts['fields'] = 'id.table1, name.table1'
 	 * $sqlStatementParts['body'] = 'SELECT {fields}  FROM `table1`'
 	 *
 	 * @var array
 	 */
 	protected $sqlStatementParts;
-	
+
 	/**
 	 * Array with filter functions.
 	 * 
@@ -48,7 +49,7 @@ class DbalDataSource implements DataSourceInterface
 	public function __construct($sqlStatementParts)
 	{
 		$this->sqlStatementParts = $sqlStatementParts;
-		
+
 		$this->filterFunctions = array(
 			FilterOperator::EQ			=> function($item, $filter) { return $item == $filter; },
 			FilterOperator::NOT_EQ		=> function($item, $filter) { return $item != $filter; },
@@ -82,9 +83,10 @@ class DbalDataSource implements DataSourceInterface
 			$query .= $paginatorStmt;
 		}
 
+
 		$stmt = $container->get('doctrine.orm.entity_manager')->getConnection()->prepare($query);
 		$stmt->execute();
-
+		
 		return $stmt->fetchAll();
 	}
 	
@@ -160,6 +162,7 @@ class DbalDataSource implements DataSourceInterface
 						$clause = 'WHERE ';
 						$findWhere = true;
 					}
+
 					$filterInfo = $filter->getInfo();
 					$whereParts [] = 'AND '.$filterInfo['rootAlias'].'.'.$filter->getName() . ' LIKE "%' . strtolower($filter->getValue()) . '%"';
 				}
